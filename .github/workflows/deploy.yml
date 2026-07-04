@@ -17,7 +17,11 @@ jobs:
       - name: Set image tag
         id: vars
         run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-      
+        
+      - name: Build Quarkus app
+        working-directory: token
+        run: ./mvnw clean package -DskipTests
+        
       - name: Build image
         working-directory: token
         run: podman build --no-cache -t localhost/token-api:${TAG} .

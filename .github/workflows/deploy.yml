@@ -17,7 +17,9 @@ jobs:
       - name: Set image tag
         id: vars
         run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
+      - name: Ensure mvnw is executable
+        run: chmod +x ./mvnw
+  
       - name: Build Quarkus app
         working-directory: token
         run: ./mvnw clean package -DskipTests
